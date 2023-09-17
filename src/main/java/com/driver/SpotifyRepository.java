@@ -45,28 +45,28 @@ public class SpotifyRepository {
         }
         User user=new User(name,mobile);
         //null pointer
-        userPlaylistMap.put(user, new ArrayList<>());
+       // userPlaylistMap.put(user, new ArrayList<>());
         users.add(user);
         return user;
     }
 
   public Artist createArtist(String name)
   {
-      for(Artist u:artists)
+      for(Artist a:artists)
       {
-          if(u.getName().equals(name))
-              return u;
+          if(a.getName().equals(name))
+              return a;
       }
       Artist artist=new Artist(name);
       //album
-      artistAlbumMap.put(artist, new ArrayList<>());
+    //  artistAlbumMap.put(artist, new ArrayList<>());
       artists.add(artist);
       return artist;
     }
 
     public Album createAlbum(String title, String artistName)
     {
-        int k=0;
+      //  int k=0;
    //    for(Album album:albums)
         Artist art=null;
         Album album=new Album();
@@ -76,22 +76,19 @@ public class SpotifyRepository {
             if(a.getName().equals(artistName))
             {
                 art=a;
-                k=1;
                 break;
             }
         }
-        if(k==0)
+        if(art==null)
         {
            Artist artist=new Artist(artistName);
            artists.add(artist);
            art=artist;
 
         }
-        List<Album>lial=artistAlbumMap.get(art);
-        if(lial==null)
-            lial=new ArrayList<>();
-        lial.add(album);
-        artistAlbumMap.put(art,lial);
+        List<Album>Albumlist=artistAlbumMap.getOrDefault(art,new ArrayList<>());
+        Albumlist.add(album);
+        artistAlbumMap.put(art,Albumlist);
 
         return album;
     }
@@ -123,7 +120,23 @@ public class SpotifyRepository {
 
     public Playlist createPlaylistOnLength(String mobile, String title, int length) throws Exception
     {
+        User user=null;
+
+        for(User us:users)
+        {
+            if(us.getMobile()==mobile)
+            {
+                user=us;
+                break;
+            }
+        }
+        if(user==null) {
+            throw new Exception("User does not exist");
+        }
+        else
+        {
         Playlist playlist=new Playlist(title);
+        playlists.add(playlist);
         List<Song>songlist=null;
       for(Song song:songs)
       {
@@ -133,26 +146,10 @@ public class SpotifyRepository {
              songlist.add(song);
              playlistSongMap.put(playlist,songlist);
          }
+      }
 
-      }
-      User user=null;
-      if(songlist!=null)
-          playlists.add(playlist);
-      for(User us:users)
-      {
-          if(us.getMobile()==mobile)
-          {
-              user=us;
-              break;
-          }
-      }
-      if(user==null) {
-          throw new Exception("User does not exist");
-      }
-          else
-          {
-              List<User>userlist;
-              userlist=playlistListenerMap.getOrDefault(playlist,new ArrayList<>());
+              List<User>userlist=new ArrayList<>();
+      //userlist=playlistListenerMap.getOrDefault(playlist,new ArrayList<>());
               userlist.add(user);
               playlistListenerMap.put(playlist,userlist);
               creatorPlaylistMap.put(user,playlist);
