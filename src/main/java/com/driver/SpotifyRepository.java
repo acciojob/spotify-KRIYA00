@@ -44,6 +44,8 @@ public class SpotifyRepository {
                  return u;
         }
         User user=new User(name,mobile);
+        //null pointer
+        userPlaylistMap.put(user, new ArrayList<>());
         users.add(user);
         return user;
     }
@@ -56,6 +58,8 @@ public class SpotifyRepository {
               return u;
       }
       Artist artist=new Artist(name);
+      //album
+      artistAlbumMap.put(artist, new ArrayList<>());
       artists.add(artist);
       return artist;
     }
