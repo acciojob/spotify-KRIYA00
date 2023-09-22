@@ -15,7 +15,7 @@ public class SpotifyController {
     public String createUser(@RequestParam(name = "name") String name, String mobile){
         //create the user with given name and number
         spotifyService.createUser(name,mobile);
-        System.out.println("name "+name +" ,mobile "+mobile);
+    //    System.out.println("name "+name +" ,mobile "+mobile);
         return "Success";
     }
 
@@ -79,7 +79,7 @@ public class SpotifyController {
         //If the user does not exist, throw "User does not exist" exception
         //If the song does not exist, throw "Song does not exist" exception
         //Return the song after updating
-        System.out.println("mobile "+ mobile +" ,songTitle "+songTitle);
+     //   System.out.println("mobile "+ mobile +" ,songTitle "+songTitle);
         try {
             spotifyService.likeSong(mobile, songTitle);
 
