@@ -69,7 +69,7 @@ public class SpotifyRepository {
       //  int k=0;
    //    for(Album album:albums)
         Artist art=null;
-        Album album=new Album();
+        Album album=new Album(title);
         albums.add(album);
         for(Artist a:artists)
         {
@@ -109,11 +109,11 @@ public class SpotifyRepository {
        else
        {
            Song song=new Song(title,length);
+           songs.add(song);
            List<Song>songlist;
 
                songlist=albumSongMap.getOrDefault(album,new ArrayList<>());
                songlist.add(song);
-               songs.add(song);
                return song;
        }
     }
@@ -229,33 +229,19 @@ public class SpotifyRepository {
             }
             if(playList==null)
                 throw new Exception("Playlist does not exist");
-            else
-            {
-                List<User>userlist = null;
-                List<Playlist>playlistList;
-                if(playlistListenerMap.containsKey(playList))
-                {
-                    if(!(playlistListenerMap.get(playList).contains(user)))
-                    {
-                        userlist=playlistListenerMap.get(playList);
-
+            else {
+                List<User> userlist = null;
+                List<Playlist> playlistList;
+                if (playlistListenerMap.containsKey(playList)) {
+                    if (!(playlistListenerMap.get(playList).contains(user))) {
+                        userlist = playlistListenerMap.get(playList);
+                        userlist.add(user);
+                        List<Playlist>listofplaylist=userPlaylistMap.getOrDefault(user,new ArrayList<>());
+                        listofplaylist.add(playList);
+                        userPlaylistMap.put(user,listofplaylist);
                     }
+
                 }
-                else {
-                   userlist=new ArrayList<>();
-                    creatorPlaylistMap.put(user,playList);
-                }
-                userlist.add(user);
-                playlistListenerMap.put(playList,userlist);
-                if(userPlaylistMap.containsKey(user))
-                {
-                    playlistList=userPlaylistMap.get(user);
-                }
-                else {
-                    playlistList=new ArrayList<>();
-                }
-                playlistList.add(playList);
-                userPlaylistMap.put(user,playlistList);
                 return playList;
             }
         }
