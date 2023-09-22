@@ -72,23 +72,23 @@ public class SpotifyController {
     }
 
     @PutMapping("/like-song")
-    public String likeSong(String mobile, String songTitle) throws Exception{
+    public String likeSong(String mobile, String songTitle) throws Exception {
         //The user likes the given song. The corresponding artist of the song gets auto-liked
         //A song can be liked by a user only once. If a user tried to like a song multiple times, do nothing
         //However, an artist can indirectly have multiple likes from a user, if the user has liked multiple songs of that artist.
         //If the user does not exist, throw "User does not exist" exception
         //If the song does not exist, throw "Song does not exist" exception
         //Return the song after updating
-     //   System.out.println("mobile "+ mobile +" ,songTitle "+songTitle);
-        try {
-            spotifyService.likeSong(mobile, songTitle);
+        //   System.out.println("mobile "+ mobile +" ,songTitle "+songTitle);
+        //  try {
+        spotifyService.likeSong(mobile, songTitle);
 
-            return "Success";
-        }
-        catch(Exception e)
-        {
-            return e.getMessage();
-        }
+        return "Success";
+        //    }
+        //    catch(Exception e)
+        //    {
+        //       return e.getMessage();
+        //    }
     }
 
     @GetMapping("/popular-artist")

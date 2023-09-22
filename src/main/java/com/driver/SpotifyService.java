@@ -42,14 +42,14 @@ return spotifyRepository.findPlaylist(mobile,playlistTitle);
     }
 
     public Song likeSong(String mobile, String songTitle) throws Exception {
-        try {
+       // try {
             return spotifyRepository.likeSong(mobile, songTitle);
-        }
-        catch(Exception e)
-        {
-            System.out.println(e.getMessage());
-            throw e;
-        }
+      //  }
+      //  catch(Exception e)
+      //  {
+       //     System.out.println(e.getMessage());
+       //     throw e;
+       // }
     }
 
     public String mostPopularArtist() {
