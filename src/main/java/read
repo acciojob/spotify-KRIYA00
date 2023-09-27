@@ -1,0 +1,7 @@
+Create a Lift management system:
+ POST: Add Lift, Passenger
+ Lift: LiftNo, CapacityInWeight, CapacityInPerson, List<Passenger>;
+ Passenger: PassengerId, Lift, Weight
+Delete all passengers with id less than 5
+Find the maximum number of people with weight X that can travel in a lift
+Find the number of people with weight greater than 50 in a given lift
